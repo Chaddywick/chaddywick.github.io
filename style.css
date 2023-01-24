@@ -1,7 +1,7 @@
 body {
     background-image: url(images/website-background.png);
     background-position: center;
-    background-size: cover;
+    background-attachment: fixed;
     color: rgb(45, 45, 45);
     padding: 10px;
     font-family: Trebuchet MS;
@@ -15,6 +15,7 @@ body {
 nav {
     background-color: #f6afc280;
     backdrop-filter: blur(8px);
+    border-radius: 10px;
     margin: 0 auto;
     margin-bottom: 20px;
     display: flex;
@@ -43,6 +44,7 @@ a {
 main {
     background: #ffffff70;
     backdrop-filter: blur(8px);
+    border-radius: 10px;
     display: flex;
 }
 .sidebar {
@@ -52,17 +54,42 @@ main {
 .sidebar-img {
     width: 200px;
     border: 4px silver ridge;
+    border-radius: 10px;
 }
 .content {
     flex: 1;
     padding: 15px;
 }
-
-/* portfolio styles */
 #interests {
     border: 4px silver ridge;
+    border-radius: 10px;
     padding: 8px;
 }
 h2, h3 {
     margin: 0px;
+}
+/* portfolio styles */
+.content h1 {
+    color: black;
+}
+
+#portfolio {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#portfolio li {
+    background: #ffffff70;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#portfolio li:hover {
+    background: #eee;
+}
+
+#portfolio a {
+    text-decoration: none;
+    color: #454545;
 }
