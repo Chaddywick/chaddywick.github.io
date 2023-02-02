@@ -1,0 +1,6 @@
+body {
+    background-image: url(asset/website-background.png);
+    background-position: center;
+    background-attachment: fixed;
+    backdrop-filter: blur(4px);
+}
