@@ -44,25 +44,25 @@
                     throw new Error(`You are trying to place a cannon off the stage at ${position}, this is not allowed!`);
                 }
             }
-            
+
             let tweenTo = {}, cannon, projectile, tween, x, y, angle;
             
             if (type === "top") {
                 x = position, y = 40;
                 angle = -180;
-                tweenTo.y = game.world.height;
+                tweenTo.y = 1000; //projectile speed//
             } else if (type === "bottom") {
                 x = position, y = game.world.height - 72;
                 angle = 0;
-                tweenTo.y = 0;
+                tweenTo.y = -750; //projectile speed//
             } else if (type === "left") {
                 x = 42, y = position;
                 angle = 90;
-                tweenTo.x = game.world.width;
+                tweenTo.x = 900; //projectile speed//
             } else if (type === "right") {
                 x = game.world.width - 42, y = position;
                 angle = -90;
-                tweenTo.x = 0
+                tweenTo.x = 915; //projectile speed//
             } else {
                 throw new Error(`${type} is not a valid cannon type`);
             }
@@ -78,7 +78,7 @@
             projectile.angle = angle;
             projectile.alpha = 0;
 
-            tween = game.add.tween(projectile).to(tweenTo, 2000, null, true, delay || 0, -1);
+            tween = game.add.tween(projectile).to(tweenTo, 2000, null, true, delay || 0, -1); //number is fire rate, relative to projectile speed//
             configureTween(tween, projectile, cannon);
             return cannon;
        

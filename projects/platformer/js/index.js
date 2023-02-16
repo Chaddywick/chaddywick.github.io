@@ -22,7 +22,7 @@ $(document).ready(function () {
         opspark.player.init(game);
         
         const textOpts = { fontSize: '32px', fill: '#000' };
-        game.score = game.add.text(16, 16, 'Score: 0', textOpts);
+        game.score = game.add.text(16, 16, 'Heads Collected: 0', textOpts);
         game.lives = game.add.text(16, 70, 'Lives: ' + lives, textOpts);
     }
 
@@ -59,8 +59,12 @@ $(document).ready(function () {
     }
 
     function collectDb(player, collectable) {
-        game.score.text = 'Score: ' + (parseInt(/\s+(\S*)$/.exec(game.score.text)[1], 10) + collectable.type.points);
+        game.score.text = 'Heads Collected: ' + (parseInt(/\s+(\S*)$/.exec(game.score.text)[1], 10) + collectable.type.points);
         collectable.kill();
+        if((parseInt(/\s+(\S*)$/.exec(game.score.text)[1], 10) + collectable.type.points) === 8){
+            game.score.text = "Congratulations, you win!";
+            game.lives.text = " ";
+        }
     }
 
 });
