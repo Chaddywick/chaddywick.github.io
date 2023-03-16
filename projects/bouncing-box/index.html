@@ -2,31 +2,54 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Bouncing Box</title>
+	<title>Chad's Blank Bouncing Box</title>
+	<link rel="icon" href="big-zombie-face.png">
 	<script src="jquery.min.js"></script>
 	<style>
+		@font-face {
+			font-family: Minecraftia;
+			src: url(Minecraftia-Regular.ttf);
+		}
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: teal;
-			font-size: 300%;
+			background-image: url(big-zombie-face.png);
+			background-size: contain;
+			color: hsl(0, 0%, 0%);
+			font-size: 150%;
+			font-family: Minecraftia;
 			text-align: center;
 			user-select: none;
 			display: block;
 			position: absolute;
 			top: 100px;
-			left: 0px;  /* <--- Change me! */
+			left: 700px;  /* <--- Change me! */
 		}
 		.board{
 			height: 100vh;
+			user-select: none;
+			text-align: center;
+			font-size: 200%;
+			background-image: url(images/minecraft-ground.jpg);
+			background-repeat: repeat-x;
+			background-position-y: 175%;
+		}
+		.flame {
+			background-image: url(fire-item.gif);
+			background-size: cover;
+			background-repeat: no-repeat;
+			display: block;
+			width: 70px;
+			height: 35px;
+			position: absolute;
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
 </head>
-<body class="board">
-	<!-- HTML for the box -->
+<body class="board">	<!-- HTML for the box -->
 	<div class="box">?</div>
+	<div class = "flame"></div>
 
 	<script>
 		(function(){
@@ -38,31 +61,83 @@
 			//////////////////////////////////////////////////////////////////
 			
 			var box = jQuery('.box');	// reference to the HTML .box element
+			var flame = jQuery('.flame');
 			var board = jQuery('.board');	// reference to the HTML .board element
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
 
 			// Every 50 milliseconds, call the update Function (see below)
-			setInterval(update, 50);
+			
+			var interval = setInterval(update, 1);
+			
+			function endGame() {
+				changeBoxText(points);
+				alert("You won with " + misclickNum + " misclicks!")
+				clearInterval(interval);
+			};
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
-			box.on('click', handleBoxClick);
+			board.on('click', handleBoardClick);
+			box.on('click', checkBoxClicked);
+
+			function checkBoxClicked() {
+				boxClicked = true;
+			}
+
+			function handleBoardClick() {
+				if (boxClicked === true) {
+					handleBoxClick();
+					boxClicked = false;
+				} else {
+					misclickNum += 1;
+				}
+			}
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
-			}
+				box.css("top", newPositionY);
+				flame.css("left", newPositionX);
+				flame.css("top", newPositionY - 35);
+				if (points >= 20) {
+					flame.css("height", "70px");
+					flame.css("top", newPositionY - 70);
+				}
+			};
 
 			// changes the text displayed on the Box
 			function changeBoxText(newText) {
 				box.text(newText);
-			}
+				if (points % 5 === 0) {
+					colorNum += 1;
+					box.css("color", colorArr[colorNum]);
+				}
+			};
+
+
+			// Ends the game
 
 			//////////////////////////////////////////////////////////////////
 			/////////////////// YOUR CODE BELOW HERE /////////////////////////
 			//////////////////////////////////////////////////////////////////
 			
 			// TODO 2 - Variable declarations 
-			
+			var positionX = 0;
+			var positionY = 0;
+			var points = 0;
+			var speed = 1;
+			var speedY = 1;
+			var boardHeight = jQuery(window).height();
+			var color0 = "#000000";
+			var color5 = "#ed1717";
+			var color10 = "#f6830c";
+			var color15 = "#fbb806";
+			var color20 = "#ffee00";
+			var color25 = "#fffa57";
+			var color30 = "#ffffff";
+			let colorArr = [color0, color5, color10, color15, color20, color25, color30];
+			var colorNum = 0;
+			var misclickNum = 0;
+			var boxClicked = false;
 
 			
 			/* 
@@ -70,9 +145,27 @@
 			it should move the Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
-			function update() {
-				
-
+			function update(newPositionY) {
+				positionX = positionX + speed;
+				positionY = positionY + speedY;
+				moveBoxTo(positionX, positionY);
+				if (positionX > boardWidth) {
+					speed = -speed;
+				}
+				if (positionX < 0) {
+					speed = -speed;
+				}
+				if (positionY > boardHeight - 70) {
+					speedY = -speedY;
+				}
+				if (positionY < 0) {
+					speedY = -speedY;
+				}
+				if (points < 10) {
+					flame.css("visibility", "hidden");
+				} else {
+					flame.css("visibility", "visible");
+				}
 			};
 
 			/* 
@@ -81,9 +174,22 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				
-
-
+				speedY = -speedY;
+				points += 1;
+				changeBoxText(points);
+				if (speed > 0) {
+					speed += 0.125;
+				} else if (speed < 0) {
+					speed -= 0.125;
+				}
+				if (speedY > 0) {
+					speedY += 0.125;
+				} else if (speedY < 0) {
+					speedY -= 0.125;
+				}
+				if (points >= 30) {
+					endGame();
+				}
 			};
 		})();
 	</script>
