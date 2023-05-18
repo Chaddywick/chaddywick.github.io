@@ -136,7 +136,7 @@
                duration is in milliseconds 
             */
             body.shrink = function(duration) {
-                duration = duration || 100;
+                duration = duration || 1000;
                 removeFromSpace(body);
                 createjs.Tween.get(body).to({scaleX: 0, scaleY: 0}, duration).call(function() {
                     removeGameItem(body);
@@ -196,7 +196,7 @@
          */
         function createObstacle(radius,damage) {
             var gameItem = createGameItem('obstacle',radius);
-            gameItem.velocityX = -2;
+            gameItem.velocityX = -5;
 
             gameItem.onPlayerCollision = function() {
                 changeIntegrity(-damage);
