@@ -30,7 +30,9 @@ var background = function (window) {
         //////////////////////////////////////////////////////////////////
         // TODO (several):
         var mountain;
-        var backgroundMountains = [];
+        var clouds;
+        var clouds2;
+        var platform;
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
         function render() {
@@ -59,21 +61,37 @@ var background = function (window) {
             background.addChild(moon);
             
             // TODO 4: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
-            for (var i = 0; i < 3; i++) {
-                var moreMountains = draw.bitmap(backgroundMountains[i])
-                moreMountains.x = 200 * i;
-                moreMountains.y = 25;
-                background.addChild(moreMountains);
-                backgroundMountains.push(moreMountains);
-            }
+            clouds = draw.bitmap("img/background clouds.png");
+            clouds.x = 0;
+            clouds.y = -200;
+            clouds.scaleX = 2;
+            clouds.scaleY = 0.5;
+            background.addChild(clouds);
 
+            clouds2 = draw.bitmap("img/background clouds.png");
+            clouds2.x = 1600;
+            clouds2.y = -200;
+            clouds2.scaleX = 2;
+            clouds2.scaleY = 0.5;
+            background.addChild(clouds2);
+
+            
+            
             // TODO 3: Part 1 - Add a tree
-            mountain = draw.bitmap("img/mountain.png");
-            mountain.x = 350;
-            mountain.y = 25;
-            mountain.scaleX = 3;
-            mountain.scaleY = 3;
-            background.addChild(mountain);            
+            mountain = draw.bitmap("img/middleground mountain.png");
+            mountain.x = 500;
+            mountain.y = groundY - 500;
+            mountain.scaleX = 2.5;
+            mountain.scaleY = 2.5;
+            background.addChild(mountain);
+
+            platform = draw.bitmap("img/rock platform.png");
+            platform.x = -100;
+            platform.y = groundY-35;
+            platform.scaleX = 2;
+            platform.scaleY = 1;
+            background.addChild(platform);
+            
         } // end of render function - DO NOT DELETE
         
         
@@ -86,14 +104,21 @@ var background = function (window) {
             var groundY = ground.y;
             
             // TODO 3: Part 2 - Move the tree!
-            mountain.x -= 1;
-
-            if (mountain.x < -1000) {
-                mountain.x = canvasWidth;
+            mountain.x = mountain.x - 1.5;
+            if (mountain.x < -1500) {
+                mountain.x = canvasWidth + 400;
             }
             
             // TODO 4: Part 2 - Parallax
-            
+            clouds.x = clouds.x - 0.5;
+            if (clouds.x < -1700) {
+                clouds.x = canvasWidth + 100;
+            }
+
+            clouds2.x = clouds2.x - 0.5;
+            if (clouds2.x < -1700) {
+                clouds2.x = canvasWidth + 100;
+            }
 
         } // end of update function - DO NOT DELETE
         

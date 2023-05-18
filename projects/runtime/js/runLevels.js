@@ -81,6 +81,12 @@ var runLevels = function (window) {
         reward.shrink();
         startLevel();
       }
+      reward.onProjectileCollision = function() {
+        game.changeIntegrity(50);
+        game.increaseScore(100);
+        reward.shrink();
+        startLevel();
+      }
     };
 
     function startLevel() {
