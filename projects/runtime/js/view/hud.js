@@ -66,14 +66,14 @@
         
         hud.updateScore = function (value) {
             score += value;
-            txtScore.text = 'score : ' + score + ' / ' + of;
+            txtScore.text = 'Tailed Beasts Acquired : ' + score;
             layout();
             setPosition();
         };
         
         hud.updateOf = function (value) {
             of += value;
-            txtScore.text = 'score : ' + score + ' / ' + of;
+            txtScore.text = 'Tailed Beasts Acquired : ' + score;
             layout();
             setPosition();
         };

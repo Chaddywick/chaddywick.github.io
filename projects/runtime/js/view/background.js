@@ -104,7 +104,7 @@ var background = function (window) {
             var groundY = ground.y;
             
             // TODO 3: Part 2 - Move the tree!
-            mountain.x = mountain.x - 1.5;
+            mountain.x = mountain.x - 2;
             if (mountain.x < -1500) {
                 mountain.x = canvasWidth + 400;
             }
@@ -119,7 +119,6 @@ var background = function (window) {
             if (clouds2.x < -1700) {
                 clouds2.x = canvasWidth + 100;
             }
-
         } // end of update function - DO NOT DELETE
         
         

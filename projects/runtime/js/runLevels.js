@@ -14,7 +14,7 @@ var runLevels = function (window) {
     var levelData = window.opspark.levelData;
 
     // set this to true or false depending on if you want to see hitzones
-    game.setDebugMode(true);
+    game.setDebugMode(false);
 
     // TODOs 5 through 11 go here
     // BEGIN EDITING YOUR CODE HERE
@@ -54,7 +54,6 @@ var runLevels = function (window) {
       };
 
       enemy.onProjectileCollision = function() {
-        game.increaseScore(10);
         enemy.shrink();
       };
     };
@@ -77,13 +76,13 @@ var runLevels = function (window) {
       reward.velocityX = -2;
       reward.onPlayerCollision = function() {
         game.changeIntegrity(50);
-        game.increaseScore(100);
+        game.increaseScore(1);
         reward.shrink();
         startLevel();
       }
       reward.onProjectileCollision = function() {
         game.changeIntegrity(50);
-        game.increaseScore(100);
+        game.increaseScore(1);
         reward.shrink();
         startLevel();
       }
